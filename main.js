@@ -1,10 +1,9 @@
 $(document).ready(function() {
+  genera();
   // funzione al click su icona next o prev
   $(".next,.prev").click(function(){
-    console.log($(this));
-    // variabile che prende il valore della classe
     var classe=$(this).attr("class");
-    console.log(classe);
+    // console.log(classe);
     // se classe è uguale a prev
     if(classe==="prev"){
       // esegui funzione prevdiv
@@ -16,80 +15,58 @@ $(document).ready(function() {
       nextdiv();
       $(".box-carousel >div#mesi >div ul li").remove();
     }
+    genera();
+  });
+  // funzione per popolare il mio div contenente ul
+  // con inserimento di chiamata ajax per visualizzare festività
+  function genera(){
     // dichiaro variabile per ritornarmi il valore del mese tramite attr rif
-    var mese=$(".box-carousel >div#mesi >div.active").attr("rif");
+    var mesenum=$(".box-carousel >div#mesi >div.active").attr("rif");
     // console.log(mese);
     // dichiaro variabile che crea la data del mese corrispondente
-    var data = moment("2018-"+mese+"-01","YYYY-MM-DD");
+    var datadelmese = moment("2018-"+mesenum+"-01");
     // console.log(data);
-    $(".mesenome").html(data.format("MMMM YYYY").toUpperCase());
-    for(var i=1;i<=data.daysInMonth();i++){
-    $(".box-carousel >div#mesi >div.active ul").append ("<li>"+data.format(i+"-MMMM-YYYY")+ "</li>");
+    // inserisco il nome del mese nel mio h2
+    $(".mesenome").html(datadelmese.format("MMMM YYYY").toUpperCase());
+    // ciclo for per scorrere i giorni del mese corrente
+    for(var i=1;i<=datadelmese.daysInMonth();i++){
+    $(".box-carousel >div#mesi >div.active ul").append ("<li>"+datadelmese.format(i+"-MMMM-YYYY")+ "</li>");
   }
-    var number =mese - 1;
-    $.ajax({
-      url:"https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+number,
+    $.ajax({//chiamata ajax ad api
+      url:"https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+(mesenum-1),
       method:"GET",
       success:function(data){
-
         $(".box-carousel >div#mesi >div.active ul li").each(
           function(){
+            // ciclo for per scorrere gli oggetti che ricevo dalla chiamata
             for(var i=0;i<data.response.length;i++){
+              // creo variabile j per scorrere le mie date degli oggetti ricevuti
               var j=i;
-              var datamese = data.response[i].date;
-              var nuovadata =moment(datamese).format("D-MMMM-YYYY");
+              var datameserisp = data.response[i].date;
+              // creo variabile per formattare la risposta ricevuta in una data consona al confronto
+              var nuovadata =moment(datameserisp).format("D-MMMM-YYYY");
               // console.log(nuovadata);
-
-            var miastringa = $(this).text();
-            // console.log("LA TUA STRINGA:"+miastringa);
-            if(nuovadata === miastringa ){
-              var metti = $(this).text(miastringa +"-"+ data.response[j].name)
-              metti.addClass("rosso");
-              console.log("hai vinto "+metti);
+              // creo variabile per trasformare oggetto li in una stringa
+              var miadatastringa = $(this).text();
+              // console.log("LA TUA STRINGA:"+miastringa);
+              // confronto la data dell'oggetto ricevuto con la data presente nel li
+              if(nuovadata === miadatastringa ){
+                // in caso di riscontro positivo
+                // aggiungo in una nuova variabile la stringa del li più la stringa con la festività
+                var element = $(this).text(miadatastringa +"-"+ data.response[j].name)
+                element.addClass("rosso");
+                // console.log("hai vinto "+metti);
+              }
             }
-            }
-               })
-      },
-    })
-  });
-  // appena aggiorno pagina
-  var mese=$(".box-carousel >div#mesi >div.active").attr("rif");
-  console.log(mese);
-  var data = moment("2018-"+mese+"-01","YYYY-MM-DD");
-  console.log(data);
+          });
+        },
+      error:function(error){//funzione in caso di error
+        alert("errore"+error);
+      }
 
-  $(".mesenome").html(data.format("MMMM YYYY").toUpperCase());
-  for(var i=1;i<=data.daysInMonth();i++){
-    $(".box-carousel >div#mesi >div.active ul").append("<li>"+data.format(i+"-MMMM-YYYY")+ "</li>");
-  }
-  var number=mese-1;
-  $.ajax({
-    url:"https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+number,
-    method:"GET",
-    success:function(data){
-       console.log(data.response);
+    });//chiusura chiamata ajax
+  }//chiusura funzione genera
 
-
-      $(".box-carousel >div#mesi >div.active ul li").each(
-        function(){
-          for(var i=0;i<data.response.length;i++){
-            var j=i;
-            var datamese = data.response[i].date;
-            var nuovadata =moment(datamese).format("D-MMMM-YYYY");
-            console.log(nuovadata);
-          var miastringa = $(this).text();
-          console.log("LA TUA STRINGA:"+miastringa);
-          if(nuovadata === miastringa ){
-            var metti = $(this).html(miastringa +"-"+ data.response[j].name);
-            metti.addClass("rosso");
-            console.log(metti);
-          }
-          }
-         })
-       }
-
-
-  });
   // funzione per visualizzare il mese successivo
   function nextdiv(){
     var activediv=$(".box-carousel >div#mesi >div.active");
@@ -114,5 +91,4 @@ $(document).ready(function() {
     activediv.prev("div" ).addClass("active");
     }
   }
-
 })
