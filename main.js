@@ -26,16 +26,13 @@ $(document).ready(function() {
     $(".box-carousel >div#mesi >div.active ul").append ("<li>"+data.format(i+"-MMMM-YYYY")+ "</li>");
   }
     var number =mese - 1;
-  $.ajax({
-
-  url:"https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+number,
-  method:"GET",
-  success:function(data){
-    console.log(data.response);
-  }
-
-
-})
+    $.ajax({
+      url:"https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+number,
+      method:"GET",
+      success:function(data){
+        console.log(data.response);
+      }
+    })
   });
   // appena aggiorno pagina
   var mese=$(".box-carousel >div#mesi >div.active").attr("rif");
@@ -43,33 +40,28 @@ $(document).ready(function() {
   var data = moment("2018-"+mese+"-01","YYYY-MM-DD");
   console.log(data);
   for(var i=1;i<=data.daysInMonth();i++){
-  $(".box-carousel >div#mesi >div.active ul").append("<li>"+data.format(i+"-MMMM-YYYY")+ "</li>");
-}
+    $(".box-carousel >div#mesi >div.active ul").append("<li>"+data.format(i+"-MMMM-YYYY")+ "</li>");
+  }
   var number=mese-1;
-
-
-
-   $.ajax({
-
-   url:"https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+number,
-   method:"GET",
-   success:function(data){
-     console.log(data.response);
-   }
-
-
-});
-
-   function nextdiv(){
-     var activediv=$(".box-carousel >div#mesi >div.active");
-     activediv.removeClass("active");
-     activediv.next("div" ).addClass("active");
-   }
-   function prevdiv(){
-     var activediv=$(".box-carousel >div#mesi >div.active");
-     activediv.removeClass("active");
-     activediv.prev("div" ).addClass("active");
-   }
+  $.ajax({
+    url:"https://flynn.boolean.careers/exercises/api/holidays?year=2018&month="+number,
+    method:"GET",
+    success:function(data){
+      console.log(data.response);
+    }
+  });
+  // funzione per visualizzare il mese successivo
+  function nextdiv(){
+    var activediv=$(".box-carousel >div#mesi >div.active");
+    activediv.removeClass("active");
+    activediv.next("div" ).addClass("active");
+  }
+  // funzione per visualizzare mese precedente
+  function prevdiv(){
+    var activediv=$(".box-carousel >div#mesi >div.active");
+    activediv.removeClass("active");
+    activediv.prev("div" ).addClass("active");
+  }
 
 
 
