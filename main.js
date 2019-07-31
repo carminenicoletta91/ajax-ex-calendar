@@ -43,6 +43,7 @@ $(document).ready(function() {
             // console.log("LA TUA STRINGA:"+miastringa);
             if(nuovadata === miastringa ){
               var metti = $(this).text(miastringa +"-"+ data.response[j].name)
+              metti.addClass("rosso");
               console.log("hai vinto "+metti);
             }
             }
@@ -64,11 +65,7 @@ $(document).ready(function() {
     method:"GET",
     success:function(data){
        console.log(data.response);
-      // // for(var i=0;i<data.response.length;i++){
-      // //   console.log(data.response[i]);
-      // //   var datamese = data.response[i].date;
-      // //   var nuovadata =moment(datamese).format("D-MMMM-YYYY");
-      //   console.log(nuovadata);
+
 
       $(".box-carousel >div#mesi >div.active ul li").each(
         function(){
@@ -80,7 +77,8 @@ $(document).ready(function() {
           var miastringa = $(this).text();
           console.log("LA TUA STRINGA:"+miastringa);
           if(nuovadata === miastringa ){
-            var metti = $(this).html(miastringa +"-"+ data.response[j].name)
+            var metti = $(this).html(miastringa +"-"+ data.response[j].name);
+            metti.addClass("rosso");
             console.log(metti);
           }
           }
@@ -93,13 +91,25 @@ $(document).ready(function() {
   function nextdiv(){
     var activediv=$(".box-carousel >div#mesi >div.active");
     activediv.removeClass("active");
-    activediv.next("div" ).addClass("active");
+    if(activediv.hasClass("last")){
+      alert("Calendario 2018 terminato");
+      alert("refresh pagina");
+      location.reload();
+    }else{
+      activediv.next("div" ).addClass("active");
+    }
   }
   // funzione per visualizzare mese precedente
   function prevdiv(){
     var activediv=$(".box-carousel >div#mesi >div.active");
     activediv.removeClass("active");
+    if(activediv.hasClass("first")){
+      alert("Calendario 2018 terminato");
+      alert("refresh pagina");
+      location.reload();
+    }else{
     activediv.prev("div" ).addClass("active");
+    }
   }
 
 
