@@ -7,19 +7,27 @@
 .box-carousel{
   display: flex;
   justify-content: space-around;
-
-}
-#mesi{
-  display: flex;
-  justify-content:center;
-  align-items: center;
+  align-items: flex-start;
 }
 
+.mesenome{
+  text-align: center;
+}
+#mesi>div{
+  margin-top:50px;
+}
+.box-carousel >div#mesi >div ul{
+  font-size:18px;
+}
 .box-carousel >div#mesi >div{
   display: none;
 }
 .box-carousel >div#mesi >div.active{
   display: block;
+}
+.prev,.next{
+  display: flex;
+  align-items: center;
 }
 .prev-icon,.next-icon{
   font-size:50px;

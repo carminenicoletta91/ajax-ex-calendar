@@ -22,6 +22,7 @@ $(document).ready(function() {
     // dichiaro variabile che crea la data del mese corrispondente
     var data = moment("2018-"+mese+"-01","YYYY-MM-DD");
     // console.log(data);
+    $(".mesenome").html(data.format("MMMM YYYY").toUpperCase());
     for(var i=1;i<=data.daysInMonth();i++){
     $(".box-carousel >div#mesi >div.active ul").append ("<li>"+data.format(i+"-MMMM-YYYY")+ "</li>");
   }
@@ -56,6 +57,8 @@ $(document).ready(function() {
   console.log(mese);
   var data = moment("2018-"+mese+"-01","YYYY-MM-DD");
   console.log(data);
+
+  $(".mesenome").html(data.format("MMMM YYYY").toUpperCase());
   for(var i=1;i<=data.daysInMonth();i++){
     $(".box-carousel >div#mesi >div.active ul").append("<li>"+data.format(i+"-MMMM-YYYY")+ "</li>");
   }
