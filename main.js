@@ -72,8 +72,10 @@ $(document).ready(function() {
     var activediv=$(".box-carousel >div#mesi >div.active");
     activediv.removeClass("active");
     if(activediv.hasClass("last")){
+      // se entro nell'ultimo div e premo next
       alert("Calendario 2018 terminato");
       alert("refresh pagina");
+      // aggiorno la pagina
       location.reload();
     }else{
       activediv.next("div" ).addClass("active");
@@ -83,9 +85,11 @@ $(document).ready(function() {
   function prevdiv(){
     var activediv=$(".box-carousel >div#mesi >div.active");
     activediv.removeClass("active");
+    // se sono nel primo div e premo prev
     if(activediv.hasClass("first")){
       alert("Calendario 2018 terminato");
       alert("refresh pagina");
+      // aggiorno la pagina
       location.reload();
     }else{
     activediv.prev("div" ).addClass("active");
