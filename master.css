@@ -1,0 +1,26 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.box-carousel{
+  display: flex;
+  justify-content: space-around;
+
+}
+#mesi{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.box-carousel >div#mesi >div{
+  display: none;
+}
+.box-carousel >div#mesi >div.active{
+  display: block;
+}
+.prev-icon{
+  font-size:50px;
+}
