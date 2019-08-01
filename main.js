@@ -23,8 +23,13 @@ $(document).ready(function() {
     // dichiaro variabile per ritornarmi il valore del mese tramite attr rif
     var mesenum=$(".box-carousel >div#mesi >div.active").attr("rif");
     // console.log(mese);
-    // dichiaro variabile che crea la data del mese corrispondente
-    var datadelmese = moment("2018-"+mesenum+"-01");
+    var datadelmese;
+    if (mesenum === "10"||mesenum ==="11"||mesenum ==="12"){
+      datadelmese = moment("2018-"+mesenum+"-01");
+    }
+    else {
+      datadelmese = moment("2018-"+"0"+mesenum+"-01");
+    }
     // console.log(data);
     // inserisco il nome del mese nel mio h2
     $(".mesenome").html(datadelmese.format("MMMM YYYY").toUpperCase());
